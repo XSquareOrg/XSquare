@@ -20,6 +20,7 @@
 
 namespace xsquare {
 
+class Scene;
 
 class SceneLayer {
 protected:
@@ -53,22 +54,35 @@ public:
     bool has_meta(void);
     bool has_armature(void);
     */
+    inline bool operator==(const SceneLayer &rhs);
+    inline bool operator!=(const SceneLayer &rhs) {
+        return !this->operator==(rhs);
+    }
 };
 
 
 class SceneLayers {
+protected:
+    Scene *scene;
 public:
-
+    SceneLayers(Scene *scene) {
+        this->scene = scene;
+    }
+    inline bool operator==(const SceneLayers &rhs) {
+        return this->scene == rhs.scene;
+    }
+    inline bool operator!=(const SceneLayers &rhs) {
+        return !this->operator==(rhs);
+    }
 };
 
 
 class Scene {
 public:
-    // SceneLayers layers;
+    // std::string name;
+    SceneLayers layers = SceneLayers(this);
     // Camera primary_camera = Cameras.dummy;
-    Scene() {
-        //this->layers = SceneLayers();
-    }
+    Scene() {}
     /*
     unsigned long empty_count(void);
     unsigned long light_count(void);
@@ -77,6 +91,8 @@ public:
     unsigned long meta_count(void);
     unsigned long armature_count(void);
     */
+    inline bool operator==(const Scene &rhs);
+    inline bool operator!=(const Scene &rhs) {return !this->operator==(rhs);}
 };
 
 
