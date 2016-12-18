@@ -18,14 +18,18 @@
 #ifndef XS_VALIDATE__
 #define XS_VALIDATE__
 
-#include "xs-core/build.h"
+#define MIN_XS_CORE_VER_MAJOR 0
+#define MIN_XS_CORE_VER_MINOR 1
+#define MIN_XS_CORE_VER_STRING "0.1"
 
-#define MIN_CORE_VER "0.0.1"
-
-#if XS_CORE_VERSION_STRING < MIN_CORE_VER
-    #error Requires xs-core >= MIN_CORE_VER
+#if (XS_CORE_VERSION_MAJOR < MIN_XS_CORE_VER_MAJOR) || \
+    (XS_CORE_VERION_MINOR < MIN_XS_CORE_VER_MINOR)
+    // FIXME
+    #error Requires xs-core >= "0.1"//MIN_XS_CORE_VER_STRING
 #else
-    #undef MIN_CORE_VER
+    #undef MIN_XS_CORE_VER_MAJOR
+    #undef MIN_XS_CORE_VER_MINOR
+    #undef MIN_XS_CORE_VER_STRING
 #endif
 
 #endif // XS_VALIDATE__
