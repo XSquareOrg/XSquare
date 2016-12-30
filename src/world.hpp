@@ -24,14 +24,25 @@ namespace xsquare {
 class WorldVariables {
 public:
     struct {
+        protected:
+            float amount = 0.1f;
+        public:
         bool enabled = true;
-        float amount = 0.1f;
+        float get_amount(void) {return this->amount;}
+        void set_amount(const float amt) {
+            if (amt <= 0.1f) this->amount = 0.1f;
+            else if (amt >= 1.0f) this->amount = 1.0f;
+            else this->amount = amt;
+        }
         //RGB16 color;
         bool _is_renderable(void) {
             return this->enabled && this->amount > 0.0f;
         }
     } ambient_lighting;
     struct {
+        protected:
+            unsigned blend_ratio = 50;
+        public:
         bool enabled = true;
         bool solid_sky = false;
             /* if solid_sky is true only sky_color will be used
@@ -40,7 +51,12 @@ public:
              */
         //RGB16 sky_color;
         //RGB16 horizon_color;
-        unsigned blend_ratio = 50; // blend ratio between sky_color and horizon_color
+        // blend ratio between sky_color and horizon_color
+        unsigned get_blend_ratio(void) {return this->blend_ratio;}
+        void set_blend_ratio(const unsigned r) {
+            if (r >= 100) this->blend_ratio = 100;
+            else this->blend_ratio = 0;
+        }
         int draw(void);
     } sky;
     float gravity = 9.8f;
@@ -64,7 +80,5 @@ public:
 };
 
 
-
 } // xsquare
-
 #endif // XS_WORLD__
