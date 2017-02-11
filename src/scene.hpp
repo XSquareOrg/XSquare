@@ -34,6 +34,9 @@ protected:
     // - is not affected by force_render_mode
     int _render_priority = 0;
     int _update_priority = 0;
+    void _optomize(void);
+    void _set_render_priority(const int p);
+    void _set_update_priority(const int p);
 public:
     bool enabled = true;
     bool force_render_mode = 0;
@@ -77,23 +80,31 @@ public:
 };
 
 
+class Scenes {
+protected:
+    //std::vector<Scene> items;
+    Scene *active;
+public:
+    unsigned size(void);
+    Scene& get_active(void);
+    void set_active(const Scene &scene);
+};
+
+
 class Scene {
 public:
     // std::string name;
     SceneLayers layers = SceneLayers(this);
     // Camera primary_camera = Cameras.dummy;
-    Scene() {}
-    /*
-    unsigned long empty_count(void);
-    unsigned long light_count(void);
-    unsigned long camera_count(void);
-    unsigned long mesh_count(void);
-    unsigned long meta_count(void);
-    unsigned long armature_count(void);
-    */
+    Scene() {
+        }
     inline bool operator==(const Scene &rhs);
     inline bool operator!=(const Scene &rhs) {return !this->operator==(rhs);}
 };
+
+
+//Scenes scenes = Scenes();
+
 
 
 } // xsquare
